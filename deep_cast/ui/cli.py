@@ -1,5 +1,5 @@
 from prompt_toolkit import PromptSession, prompt
-from utils import email_valid
+import utils.email_tools as et
 
 class terminal() :
 
@@ -23,12 +23,15 @@ class terminal() :
                             print("It's time to go Phishing!")
                             
                             valid = False
+                            caster_email = ""
+                            reciever_email = ""
+                            
                             while not valid : 
                                 caster_email = prompt('From : ')
-                                valid = email_valid.is_valid_email(caster_email)
+                                valid = et.is_valid_email(caster_email)
                                 
                                 reciever_email = prompt('To : ')
-                                valid = email_valid.is_valid_email(reciever_email)
+                                valid = et.is_valid_email(reciever_email)
                             
                             print(f"sent bait to {reciever_email} from {caster_email}")
                         
