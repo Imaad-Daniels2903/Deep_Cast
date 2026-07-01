@@ -1,5 +1,4 @@
 import re
-from abc import ABC, abstractmethod
 import yagmail as yg
 import base64
 from email.mime.text import MIMEText
@@ -22,36 +21,29 @@ def send_email(email: str) :
     pass
 
 
-class sender(ABC) :
+class sender() :
 
     def __init__(self, method: str) -> None :
         self.method = method
 
-    @abstractmethod
-    def init_sender(self) :
-        pass
-
-    @abstractmethod
-    def send(self) :
-        pass
-
-
     def create_sender(self) :
         match(self.method.lower()) :
             case "oauth" : 
-                return ya_gmail()
+                return o_auth().init_sender()
 
             case "stmplib" :
                 return 
 
             case "yagmail" :
-                pass
+                sender_email = input('sender email: ')
+                app_pass = input('app password: ')
+                return ya_gmail().init_sender(sender_email, app_pass)
 
             case "sendgrid" :
                 pass
             
             
-class ya_gmail(sender) :
+class ya_gmail() :
     def init_sender(self, sender: str = "", app_password: str = ""):
         self.sender = sender
         self.app_password = app_password
@@ -63,7 +55,7 @@ class ya_gmail(sender) :
         self.y.send(recipient, subject, body)
 
 
-class o_auth(sender) :
+class o_auth() :
     
     def init_sender(self):
         SCOPES = ["https://www.googleapis.com/auth/gmail.send"]
@@ -81,13 +73,13 @@ class o_auth(sender) :
             else:
                 flow = InstalledAppFlow.from_client_secrets_file("credentials.json", SCOPES)
                 creds = flow.run_local_server(port=0)  # opens browser for login
-            with open("token.json", "w") as f:
+            with open("secrets/token.json", "w") as f:
                 f.write(creds.to_json())           # save for next time
 
         return build("gmail", "v1", credentials=creds)
     
     def send(self):
-        return super().send()
+        pass
 
 
 class smtp_lib(sender) :
