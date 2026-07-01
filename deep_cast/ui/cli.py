@@ -19,8 +19,17 @@ class terminal() :
                             break
                         
                         case 'gophish' :
-                            
                             print("It's time to go Phishing!")
+                            methods = ["yagmail", "oauth"]
+                            method = ""
+
+                            print("Choose one of these methods: yagmail, oauth")
+                            while method not in methods:
+                               method = input('method: ') 
+                            
+                            sender = self.get_sender(method)
+
+                            print("sender loaded successfully")
                             
                             valid = False
                             caster_email = ""
@@ -43,6 +52,10 @@ class terminal() :
                 except EOFError:
                     # Handles Ctrl+D gracefully
                     break
+
+    def get_sender(self, method: str) :
+        sender = et.sender(method).create_sender()
+        return sender
 
 # def main() :
 #     t = terminal()
