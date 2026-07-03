@@ -20,12 +20,26 @@ class terminal() :
                         
                         case 'gophish' :
                             print("It's time to go Phishing!")
-                            methods = ["yagmail", "oauth"]
+                            methods = ["yagmail", "oauth", "sendgrid", "smtplib"]
                             method = ""
 
-                            print("Choose one of these methods: yagmail, oauth")
+                            print("""
+Choose one of these methods: 
+[1] yagmail
+[2] oauth 
+[3] sendgrid
+[4] smtplib
+                                """)
+                            
                             while method not in methods:
-                               method = input('method: ') 
+                                method = input('method: ')
+                                if method not in methods and method.isdigit():
+                                    match(int(method)) :
+                                        case 1 | 2 | 3 | 4:
+                                            method = methods[int(method) - 1]
+
+                                        case _ :
+                                            print("incorrect input")
                             
                             sender = self.get_sender(method)
 
