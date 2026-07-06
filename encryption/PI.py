@@ -1,4 +1,6 @@
 import requests
+from pathlib import Path
+import json
 
 def digits(start: int = 0, num_digits: int = 100) -> str:
     """
@@ -14,13 +16,50 @@ def digits(start: int = 0, num_digits: int = 100) -> str:
         "numberOfDigits": num_digits
     }
     
-    try:
-        response = requests.get(url, params=params)
-        response.raise_for_status()  # Raise an error for bad status codes (4ff or 5ff)
+    pi_cache = "pi.json"
+    
+    if Path(pi_cache).exists() :
+        with open(pi_cache, "r") as pi :
+            digits = json.load(pi)
+            
+            if len(digits["digits"]) < num_digits : 
+                    try:
+                        response = requests.get(url, params=params)
+                        response.raise_for_status()  # Raise an error for bad status codes (4ff or 5ff)
+                        
+                        data = response.json()
+                        digits["digits"] = data.get("content", "")
+                        
+                        with open(pi_cache, "w") as file :
+                            json.dump(digits, file, indent=4)
+                            return "".join(digits["digits"])
+                        
+                    except requests.exceptions.RequestException as e:
+                        print(f"Error fetching data from API: {e}")
+                        return ""
+                    
+            else :
+                    return "".join(digits["digits"][0:params["numberOfDigits"]])
+                
+            
+    else :
+        try:
+            response = requests.get(url, params=params)
+            response.raise_for_status()  # Raise an error for bad status codes (4ff or 5ff)
+            
+            data = response.json()
+            content = data.get("content", "")
+            
+            new_data = {"digits" : list(content)}
+            with open(pi_cache, "w") as file :
+                json.dump(new_data, file, indent=4)
+                
+            return content
+            
+        except requests.exceptions.RequestException as e:
+            print(f"Error fetching data from API: {e}")
+            return ""
         
-        data = response.json()
-        return data.get("content", "")
         
-    except requests.exceptions.RequestException as e:
-        print(f"Error fetching data from API: {e}")
-        return ""
+if __name__ == "__main__" :
+    print(digits(num_digits=5))
