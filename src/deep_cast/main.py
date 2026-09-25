@@ -1,10 +1,10 @@
 from deep_cast.ui import cli
 
 
-def main() :
+def cli_entry() :
     t = cli.terminal()
     t.start()
     
     
 if __name__ == "__main__" : 
-    main()
+    cli_entry()
