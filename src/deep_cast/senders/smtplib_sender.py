@@ -1,6 +1,6 @@
 import smtplib
 from email.mime.text import MIMEText
-from base import EmailSender
+from deep_cast.senders.base import EmailSender
 
 class SMTPSender(EmailSender):
     def __init__(self, host, port, username, password):

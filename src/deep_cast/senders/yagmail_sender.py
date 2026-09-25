@@ -1,4 +1,4 @@
-from base import EmailSender
+from deep_cast.senders.base import EmailSender
 import yagmail
 
 class YagmailSender(EmailSender) :

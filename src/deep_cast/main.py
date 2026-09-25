@@ -1,4 +1,4 @@
-from ui import cli
+from deep_cast.ui import cli
 
 
 def main() :
