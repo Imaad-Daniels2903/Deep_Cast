@@ -19,7 +19,7 @@ dependencies = [
 ]
 
 [project.scripts]
-myproject = "deep_cast.main:cli_entry"
+deep_cast = "deep_cast.main:cli_entry"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/deep_cast"]
