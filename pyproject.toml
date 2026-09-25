@@ -1,0 +1,25 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "deep_cast"
+version = "1.0.0"
+description = "A console based Phishing simulator"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "prompt_toolkit",
+    "python-dotenv",
+    "google-auth-oauthlib",
+    "google-auth-httplib2",
+    "google-api-python-client",
+    "yagmail",
+    "sendgrid",
+]
+
+[project.scripts]
+myproject = "deep_cast.main:cli_entry"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/deep_cast"]
