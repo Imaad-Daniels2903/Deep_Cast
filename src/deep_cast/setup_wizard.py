@@ -2,14 +2,12 @@ import os
 import re
 # from encryption import cipher
 from dotenv import load_dotenv, set_key
+from deep_cast.utils.email_tools import is_valid_email
 
 
 def promptInput(promptMessage : str = "") -> str :
     return input(promptMessage)
 
-def is_valid_email(email : str) -> bool :
-    EMAIL_REGEX = r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
-    
     return bool(re.match(EMAIL_REGEX, email))
         
 def add_to_env(key : str, value : str) :
@@ -76,6 +74,20 @@ Enter API url: """)
 
     else :
         add_to_env("API_URL", api_url)
+        
+
+    email = input("""
+==============================================================================
+                                EMAIL SETUP
+==============================================================================
+
+This will be the email address use to send out everything and an be changed at a later stage.
+
+Enter API url: """)
+    while is_valid_email(email.lower()) :
+        email = input('Email is not valid, please try again: ')
+        
+    add_to_env("EMAIL", email)     
 
     
 if __name__ == "__main__":
