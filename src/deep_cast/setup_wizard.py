@@ -84,7 +84,7 @@ Enter API url: """)
 This will be the email address use to send out everything and an be changed at a later stage.
 
 Enter API url: """)
-    while is_valid_email(email.lower().strip()) :
+    while not is_valid_email(email.lower().strip()) :
         email = input('Email is not valid, please try again: ')
         
     add_to_env("EMAIL", email)     
