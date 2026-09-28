@@ -1,5 +1,6 @@
 from prompt_toolkit import PromptSession, prompt
 import deep_cast.utils.email_tools as et
+import os
 
 class terminal() :
 
@@ -17,6 +18,9 @@ class terminal() :
                     match(text.strip().lower()) :
                         case 'quit' | 'exit' :
                             break
+                        
+                        case 'env' :
+                            print(os.getenv("EMAIL"))
                         
                         case 'gophish' :
                             print("It's time to go Phishing!")
