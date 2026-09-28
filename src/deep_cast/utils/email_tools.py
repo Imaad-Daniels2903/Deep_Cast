@@ -5,7 +5,5 @@ email_regex = r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
 
 def is_valid_email(email: str) -> bool:
     # re.match checks from the start of the string
-    if re.match(email_regex, email):
-        return True
-    return False
+    return re.match(email_regex, email)
 
