@@ -6,7 +6,7 @@ if str(project_root) not in sys.path:
     sys.path.insert(0, str(project_root))
 import setup_wizard
 import os
-from deep_cast.ui import cli
+from ui import cli
 
 
 def cli_entry() :

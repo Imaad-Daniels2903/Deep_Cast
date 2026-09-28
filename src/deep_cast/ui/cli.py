@@ -1,5 +1,5 @@
 from prompt_toolkit import PromptSession, prompt
-import deep_cast.utils.email_tools as et
+import utils.email_tools as et
 
 class terminal() :
 
