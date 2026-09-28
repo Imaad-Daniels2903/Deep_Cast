@@ -4,7 +4,7 @@ current_file = Path(__file__).resolve()
 project_root = current_file.parents[2]
 if str(project_root) not in sys.path:
     sys.path.insert(0, str(project_root))
-import setup_wizard
+import deep_cast.setup_wizard as setup_wizard
 import os
 from ui import cli
 

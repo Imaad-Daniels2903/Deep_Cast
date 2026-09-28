@@ -20,11 +20,7 @@ dependencies = [
 
 [project.scripts]
 dcast = "deep_cast.main:cli_entry"
-dsetup = "setup_wizard:main"
+dsetup = "deep_cast.setup_wizard:main"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/deep_cast"]
-include = [
-  "src/deep_cast",
-  "setup_wizard.py",
-]
