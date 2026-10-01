@@ -5,3 +5,5 @@ google-api-python-client
 python-dotenv
 yagmail
 sendgrid
+requests
+keyring

@@ -1,6 +1,7 @@
 from prompt_toolkit import PromptSession, prompt
 import deep_cast.utils.email_tools as et
 import os
+import keyring
 
 class terminal() :
 
@@ -20,7 +21,7 @@ class terminal() :
                             break
                         
                         case 'env' :
-                            print(os.getenv("EMAIL"))
+                            print(keyring.get_password("deep_cast", "EMAIL"))
                         
                         case 'gophish' :
                             print("It's time to go Phishing!")

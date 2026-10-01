@@ -1,4 +1,4 @@
-import PI
+import deep_cast.encryption.PI as PI
 
 def encrypt(text: str, key: str = "12345678") -> str :
     magic_key = [int(digit) for digit in list(key)]

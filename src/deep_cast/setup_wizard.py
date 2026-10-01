@@ -1,8 +1,9 @@
 import os
 import re
+import keyring
 # from encryption import cipher
 from dotenv import load_dotenv, set_key
-from deep_cast.utils.email_tools import is_valid_email
+from utils.email_tools import is_valid_email
 
 
 def promptInput(promptMessage : str = "") -> str :
@@ -10,15 +11,8 @@ def promptInput(promptMessage : str = "") -> str :
 
     return bool(re.match(EMAIL_REGEX, email))
         
-def add_to_env(key : str, value : str) :
-    dotenv_path = ".env"
-
-    if not os.path.exists(dotenv_path):
-        open(dotenv_path, "w").close()
-
-    set_key(dotenv_path, key, value)
-
-    load_dotenv(dotenv_path, override=True)
+def add_to_keyring(key : str, value : str) :
+    keyring.set_password("deep_cast", key, value)
     
 def make_hyperlink(url: str, text: str) -> str:
     # \033]8;; creates the link start, \033\ ends the header
@@ -52,10 +46,10 @@ established go to the App Password section in the README and follow the instruct
 
 Enter App Password : """)
     if not app_password.strip :
-        add_to_env("APP_PASSWORD", "N/A")
+        add_to_keyring("APP_PASSWORD", "N/A")
     
     else :
-        add_to_env("APP_PASSWORD", app_password)
+        add_to_keyring("APP_PASSWORD", app_password)
     
 
     api_url = input("""
@@ -70,10 +64,10 @@ want to use this method press enter to continue.
 
 Enter API url: """)
     if not api_url.strip :
-        add_to_env("API_URL", "N/A")
+        add_to_keyring("API_URL", "N/A")
 
     else :
-        add_to_env("API_URL", api_url)
+        add_to_keyring("API_URL", api_url)
         
 
     email = input("""
@@ -87,7 +81,7 @@ Enter API url: """)
     while not is_valid_email(email.lower().strip()) :
         email = input('Email is not valid, please try again: ')
         
-    add_to_env("EMAIL", email)     
+    add_to_keyring("EMAIL", email)     
 
     
 if __name__ == "__main__":
