@@ -2,8 +2,7 @@ import os
 import re
 import keyring
 # from encryption import cipher
-from dotenv import load_dotenv, set_key
-from utils.email_tools import is_valid_email
+from deep_cast.utils.email_tools import is_valid_email
 
 
 def promptInput(promptMessage : str = "") -> str :
