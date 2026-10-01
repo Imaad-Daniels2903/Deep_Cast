@@ -1,16 +1,10 @@
-# import sys
-# from pathlib import Path
-# current_file = Path(__file__).resolve()
-# project_root = current_file.parents[2]
-# if str(project_root) not in sys.path:
-#     sys.path.insert(0, str(project_root))
 import deep_cast.setup_wizard as setup_wizard
 import os
 from deep_cast.ui import cli
-
+import keyring
 
 def cli_entry() :
-    if not os.path.isfile(".env") :
+    if keyring.get_password("deep_cast", "EMAIL") is None :
         setup_wizard.main()
         
     t = cli.terminal()
